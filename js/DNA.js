@@ -48,10 +48,33 @@ function init() {
     // }
     // line.geometry.setDrawRange(0,  numberOfPoints);
     // line.geometry.attributes.position.needsUpdate = true;
-    let start = new THREE.Vector3(-100, 0, 0);
-    let end = new THREE.Vector3(100, 0, 0);
-    testLine = new Line(start, end, 1000, 10);
-    scene.add(testLine.line);
+    // let start = new THREE.Vector3(-100, 0, 0);
+    // let end = new THREE.Vector3(100, 0, 0);
+    // testLine = new Line(start, end, 1000, 10);
+    // scene.add(testLine.line);
+    createDNALines();
+}
+
+function createDNALines(){
+    let startPosition = new THREE.Vector3(0, 2500, 0);
+    let lineGap = 25;
+    let numberOfLines = startPosition.y * 2 / lineGap;
+    let cycleLength = 80;
+    let rotationUnit = 2*Math.PI/cycleLength;
+    let baseLength = 150;
+    let varyLength = 100;
+    let startRotation = 0;
+    for (let i=0; i<numberOfLines; i++){
+        let currentRotation = startRotation + i*rotationUnit;
+        let currentHalfLength = 150 + Math.sin(currentRotation) * varyLength;
+        let start =  new THREE.Vector3(-currentHalfLength, 0, 0);
+        let end =  new THREE.Vector3(currentHalfLength, 0, 0);
+        let newLine = new Line(start, end, 1000, 10);
+        let newLinePosition = new THREE.Vector3(0, startPosition.y - i*lineGap, 0);
+        newLine.line.position.copy(newLinePosition);
+        scene.add(newLine.line);
+        dnaLines.push(newLine);
+    }
 }
 
 function moveToFar(){
