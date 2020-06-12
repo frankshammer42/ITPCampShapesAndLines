@@ -33,7 +33,6 @@ function init() {
     renderer.setSize( window.innerWidth, window.innerHeight );
     container.appendChild( renderer.domElement );
     window.addEventListener( 'resize', onWindowResize, false );
-
     //Let's Try To Draw a line
     let numberOfPoints = 2;
     let lineGeometry = new THREE.BufferGeometry();
@@ -50,12 +49,7 @@ function init() {
     line.geometry.setDrawRange(0,  numberOfPoints);
     line.geometry.attributes.position.needsUpdate = true;
     scene.add(line);
-    let start = new THREE.Vector3(-100, 0, 0);
-    let end = new THREE.Vector3(100, 0, 0);
-    testLine = new Line(start, end, 1000, 10);
-    scene.add(testLine.line);
 }
-
 
 function moveToFar(){
     let target = new THREE.Vector3(0, 0, 13690);
@@ -82,9 +76,6 @@ function onWindowResize() {
 
 function animate(){
     // testLine.update();
-    for (let i=0; i<dnaLines.length; i++){
-        dnaLines[i].update();
-    }
     TWEEN.update();
     controls.update(); // controls.update();
     requestAnimationFrame( animate );
