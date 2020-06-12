@@ -34,21 +34,24 @@ function init() {
     container.appendChild( renderer.domElement );
     window.addEventListener( 'resize', onWindowResize, false );
     //Let's Try To Draw a line
-    let numberOfPoints = 2;
-    let lineGeometry = new THREE.BufferGeometry();
-    let linePosition = new Float32Array(numberOfPoints * 3);
-    lineGeometry.addAttribute("position", new THREE.BufferAttribute(linePosition, 3));
-    let material = new THREE.LineBasicMaterial({color: 0xFFFFFF});
-    let line = new THREE.Line(lineGeometry, material);
-    line.geometry.dynamic = true;
-    for (let i=0; i<numberOfPoints; i++){
-        line.geometry.attributes.position.array[i*3] = -100 + 200*i;
-        line.geometry.attributes.position.array[i*3+1] = 0;
-        line.geometry.attributes.position.array[i*3+2] = 0;
-    }
-    line.geometry.setDrawRange(0,  numberOfPoints);
-    line.geometry.attributes.position.needsUpdate = true;
-    scene.add(line);
+    // let numberOfPoints = 2;
+    // let lineGeometry = new THREE.BufferGeometry();
+    // let linePosition = new Float32Array(numberOfPoints * 3);
+    // lineGeometry.addAttribute("position", new THREE.BufferAttribute(linePosition, 3));
+    // let material = new THREE.LineBasicMaterial({color: 0xFFFFFF});
+    // let line = new THREE.Line(lineGeometry, material);
+    // line.geometry.dynamic = true;
+    // for (let i=0; i<numberOfPoints; i++){
+    //     line.geometry.attributes.position.array[i*3] = -100 + 200*i;
+    //     line.geometry.attributes.position.array[i*3+1] = 0;
+    //     line.geometry.attributes.position.array[i*3+2] = 0;
+    // }
+    // line.geometry.setDrawRange(0,  numberOfPoints);
+    // line.geometry.attributes.position.needsUpdate = true;
+    let start = new THREE.Vector3(-100, 0, 0);
+    let end = new THREE.Vector3(100, 0, 0);
+    testLine = new Line(start, end, 1000, 10);
+    scene.add(testLine.line);
 }
 
 function moveToFar(){
@@ -75,7 +78,7 @@ function onWindowResize() {
 }
 
 function animate(){
-    // testLine.update();
+    testLine.update();
     TWEEN.update();
     controls.update(); // controls.update();
     requestAnimationFrame( animate );
