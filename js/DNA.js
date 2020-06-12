@@ -102,7 +102,9 @@ function onWindowResize() {
 }
 
 function animate(){
-    testLine.update();
+    for (let i=0; i<dnaLines.length; i++){
+        dnaLines[i].update();
+    }
     TWEEN.update();
     controls.update(); // controls.update();
     requestAnimationFrame( animate );
